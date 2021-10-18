@@ -1,7 +1,10 @@
-import 'package:famlicious_app/views/home/home_view.dart';
+import 'package:famlicious_app/views/auth/create_account_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -24,8 +27,16 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: const TextTheme(
               bodyText1: TextStyle(color: Colors.black),
-              bodyText2: TextStyle(color: Colors.black))
-              ),
+              bodyText2: TextStyle(color: Colors.black)),
+          inputDecorationTheme: const InputDecorationTheme(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black)),
+              labelStyle: TextStyle(color: Colors.black)),
+          buttonTheme: const ButtonThemeData(
+            colorScheme: ColorScheme.dark(primary: Colors.white),
+            textTheme: ButtonTextTheme.primary)
+            ),
       darkTheme: ThemeData(
           scaffoldBackgroundColor: Colors.black,
           cardColor: Colors.grey.shade900,
@@ -38,9 +49,17 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: const TextTheme(
               bodyText1: TextStyle(color: Colors.white),
-              bodyText2: TextStyle(color: Colors.white))),
+              bodyText2: TextStyle(color: Colors.white)),
+          inputDecorationTheme: const InputDecorationTheme(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70)),
+              labelStyle: TextStyle(color: Colors.white70)),
+          buttonTheme: const ButtonThemeData(
+            colorScheme: ColorScheme.light(primary: Colors.black),
+            textTheme: ButtonTextTheme.primary)),
       themeMode: ThemeMode.system,
-      home: const HomeView(),
+      home: CreateAccountView(),
     );
   }
 }
