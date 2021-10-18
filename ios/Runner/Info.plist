@@ -20,6 +20,12 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Famlicious needs access to your Photos. This is secure and private</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Famlicious needs access to your Camera. This is secure and private</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Famlicious needs access to your Microphone. This is secure and private</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
