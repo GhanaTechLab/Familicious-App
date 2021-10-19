@@ -36,7 +36,11 @@ dependencies:
   unicons: ^2.0.2
   firebase_core: ^1.7.0
   image_picker: ^0.8.4+2
-  image_cropping: ^0.0.7
+  image_cropper: ^1.4.1
+  fluttertoast: ^8.0.8
+  firebase_storage: ^10.0.5
+  firebase_auth: ^3.1.3
+  cloud_firestore: ^2.5.3
 
 dev_dependencies:
   flutter_test:
