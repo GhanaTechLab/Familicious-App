@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.light(primary: Colors.black),
             textTheme: ButtonTextTheme.primary)),
       themeMode: ThemeMode.system,
-      home: CreateAccountView(),
+      home: const CreateAccountView(),
     );
   }
 }
