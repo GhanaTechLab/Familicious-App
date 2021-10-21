@@ -68,4 +68,40 @@ class AuthManager with ChangeNotifier {
     });
     return isCreated;
   }
+
+  Future<bool> loginUser(
+      {required String email, required String password}) async {
+    bool isSuccessful = false;
+    await _firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((userCredential) {
+      if (userCredential.user != null) {
+        isSuccessful = true;
+      } else {
+        isSuccessful = false;
+        setMessage('Could not log you in!');
+      }
+    }).catchError((onError) {
+      setMessage('$onError');
+      isSuccessful = false;
+    }).timeout(const Duration(seconds: 60), onTimeout: () {
+      setMessage('Please check your internet connection.');
+      isSuccessful = false;
+    });
+    return isSuccessful;
+  }
+
+  Future<bool> sendResetLink(String email) async {
+    bool isSent = false;
+    await _firebaseAuth.sendPasswordResetEmail(email: email).then((_) {
+      isSent = true;
+    }).catchError((onError) {
+      setMessage('$onError');
+      isSent = false;
+    }).timeout(const Duration(seconds: 60), onTimeout: () {
+      setMessage('Please check your internet connection.');
+      isSent = false;
+    });
+    return isSent;
+  }
 }
