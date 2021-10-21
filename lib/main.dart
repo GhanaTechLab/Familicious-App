@@ -1,6 +1,7 @@
-import 'package:famlicious_app/views/auth/create_account_view.dart';
+import 'package:famlicious_app/views/home/home_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color.fromRGBO(249, 251, 252, 1),
           cardColor: Colors.white,
           appBarTheme: const AppBarTheme(
+            iconTheme: IconThemeData(
+              color: Colors.black
+            ),
             elevation: 0,
             backgroundColor: Colors.white,
             titleTextStyle: TextStyle(
@@ -42,6 +46,9 @@ class MyApp extends StatelessWidget {
           cardColor: Colors.grey.shade900,
           iconTheme: const IconThemeData(color: Colors.white),
           appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(
+              color: Colors.white
+            ),
             elevation: 0,
             backgroundColor: Colors.black,
             titleTextStyle: TextStyle(
@@ -59,7 +66,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.light(primary: Colors.black),
             textTheme: ButtonTextTheme.primary)),
       themeMode: ThemeMode.system,
-      home: const CreateAccountView(),
+      home: const HomeView(),
     );
   }
 }
