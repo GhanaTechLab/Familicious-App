@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:famlicious_app/managers/auth_manager.dart';
+import 'package:famlicious_app/utilities/utils.dart';
 import 'package:famlicious_app/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:unicons/unicons.dart';
 
@@ -37,24 +37,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
   Future selectImage({ImageSource imageSource = ImageSource.camera}) async {
     XFile? selectedFile = await _imagePicker.pickImage(source: imageSource);
 
-    File? croppedFile = await ImageCropper.cropImage(
-        sourcePath: selectedFile!.path,
-        aspectRatioPresets: [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        androidUiSettings: const AndroidUiSettings(
-            toolbarTitle: 'My Cropper',
-            toolbarColor: Colors.black,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-        iosUiSettings: const IOSUiSettings(
-          minimumAspectRatio: 1.0,
-        ));
+    File? croppedFile = await myImageCropper(selectedFile!.path);
 
     setState(() {
       _imageFile = croppedFile;
@@ -187,7 +170,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   ? const Center(child: CircularProgressIndicator.adaptive())
                   : TextButton(
                       onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
+                        if (_formKey.currentState!.validate() &&
+                            _imageFile != null) {
                           setState(() {
                             isLoading = true;
                           });
@@ -233,10 +217,22 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                           }
+                        } else if (_formKey.currentState!.validate() &&
+                            _imageFile == null) {
+                          //image was not selected
+                          Fluttertoast.showToast(
+                              msg: "Please select your Profile picture",
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
                         } else {
                           // validation failed
                           Fluttertoast.showToast(
-                              msg: "Please check Input field(s)",
+                              msg:
+                                  "Please check Input field(s) & Profile picture",
                               toastLength: Toast.LENGTH_LONG,
                               gravity: ToastGravity.BOTTOM,
                               timeInSecForIosWeb: 1,
