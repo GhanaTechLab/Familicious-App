@@ -16,7 +16,7 @@ This project is an implementation of a Design i found on [dribble.com](https://d
 
 ## Art
 
-<img src="https://github.com/RegNex/Familicious/blob/main/screenshots/Familicious.png?raw=true" width="100%"  height="50%"/>
+<img src="https://github.com/RegNex/Familicious/blob/main/screenshots/Familicious.webp?raw=true" width="100%"  height="50%"/>
 <br>
    
 <tr>
