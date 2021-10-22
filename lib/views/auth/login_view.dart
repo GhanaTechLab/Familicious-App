@@ -28,15 +28,14 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
           child: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            const FlutterLogo(
-              size: 130,
-            ),
+            Image.asset('assets/logo_header.png',width: 130,height: 130,),
             const SizedBox(
               height: 35,
             ),
