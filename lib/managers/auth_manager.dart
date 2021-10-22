@@ -10,7 +10,7 @@ class AuthManager with ChangeNotifier {
   static final FirebaseFirestore _firebaseFirestore =
       FirebaseFirestore.instance;
   final FileUploadService _fileUploadService = FileUploadService();
-  String _message = 'hello';
+  String _message = '';
   bool _isLoading = false;
   CollectionReference userCollection = _firebaseFirestore.collection("users");
 
