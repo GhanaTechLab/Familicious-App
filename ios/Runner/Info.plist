@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Famlicious</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,14 +22,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Famlicious needs access to your Photos. This is secure and private</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Famlicious needs access to your Camera. This is secure and private</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Famlicious needs access to your Microphone. This is secure and private</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Famlicious needs access to your Photos. This is secure and private</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
