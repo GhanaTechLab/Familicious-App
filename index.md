@@ -1,37 +1,147 @@
-## Welcome to GitHub Pages
+# Famlicious App
 
-You can use the [editor on GitHub](https://github.com/RegNex/Familicious-App/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+A social media app built with [Flutter](https://flutter.dev) and [Firebase](https://firebase.google.com)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<p align="center">
 
-### Markdown
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/RegNex/Familicious/graphs/commit-activity)
+[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/RegNex/)
+[![ForTheBadge made-with-flutter](https://img.shields.io/badge/flutter-made%20with%20flutter-blue.svg)](https://flutter.dev)
+[![ForTheBadge ios-supported](https://img.shields.io/badge/IOS-IOS%20Supported-lightgrey.svg)](https://flutter.dev)
+[![ForTheBadge ios-android](https://img.shields.io/badge/android-android%20supported-green.svg)](https://flutter.dev)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+</p>
 
-```markdown
-Syntax highlighted code block
+This project is an implementation of a Design i found on [dribble.com](https://dribbble.com/shots/15800627-Famlicious-us-more-together-Social-app) by [Ivan Saverchenko](https://dribbble.com/saverchenko).
 
-# Header 1
-## Header 2
-### Header 3
+## Art
 
-- Bulleted
-- List
+<img src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/Familicious.webp" width="100%"  height="50%"/>
+<br>
+   
+<tr>
+    <td><img align="left" src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/screenshot_1.png" width="200" height="400"/></td>
+    <td><img src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/screenshot_2.png" width="200" height="400"/></td> 
+</tr>
+<tr>
+    <td><img align="left" src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/screenshot_3.png" width="200" height="400"/></td>
+    <td><img src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/screenshot_4.png" width="200" height="400"/></td> 
+</tr>
+<tr>
+    <td><img align="left" src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/screenshot_5.png" width="200" height="400"/></td>
+    <td><img src="https://raw.githubusercontent.com/RegNex/Familicious-App/main/screenshots/screenshot_6.png" width="200" height="400"/></td> 
+</tr>
 
-1. Numbered
-2. List
+## Getting Started
 
-**Bold** and _Italic_ and `Code` text
+This project is a starting point for a Flutter application.
 
-[Link](url) and ![Image](src)
+To clone this project,
+open your terminal or cmd
+
+```
+cd folder/to/clone-into/
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+```
+git clone https://github.com/RegNex/Familicious.git
+```
 
-### Jekyll Themes
+Then
+locate the project on your system and open with android studio or Vscode or intellij IDE.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/RegNex/Familicious-App/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+To Run:
+```
+C:\path\to\project> flutter pub get
 
-### Support or Contact
+```
+then run:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+```
+C:\path\to\project> flutter run
+
+```
+
+## Build release version
+
+```
+run: flutter build <OS PLATFORM> e.g flutter build ios --release
+```
+
+
+## Switch Theme
+
+**Automatically switch theme based on system settings**
+
+## Resources
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.io/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+
+## Prerequisites
+
+What things you need to run the app
+
+```
+* Android Studio/Vscode/Intellij IDE
+* Flutter SDK
+* Android SDK
+* MacBook / Windows / Linux
+```
+
+## How to contribute
+
+- **Fork the repository and clone it locally**. Connect your local to the original “upstream” repository by adding it as a remote. Pull in changes from “upstream” often so that you stay up to date so that when you submit your pull request, merge conflicts will be less likely. (See more detailed instructions here.)
+- **Create a branch** for your edits.
+- **Reference any relevant issues** or supporting documentation in your PR (for example, “Closes #37.”)
+- **Include screenshots of the before and after** if your changes include differences in HTML/CSS. Drag and drop the images into the body of your pull request.
+- **Test your changes!** Run your changes against any existing tests if they exist and create new ones when needed. Whether tests exist or not, make sure your changes don’t break the existing project.
+- **Contribute in the style of the project** to the best of your abilities. This may mean using indents, semi-colons or comments differently than you would in your own repository, but makes it easier for the maintainer to merge, others to understand and maintain in the future.
+
+## Built With
+
+- [Android Studio](https://developer.android.com/studio/install) - How to install Android Studio
+- [Flutter](https://flutter.io) - Flutter Official website
+
+## Author 😊
+
+**Etornam Sunu Bright**
+
+- [**Twitter**](https://bit.ly/3ivb9GC)
+- [**Linkedin**](https://bit.ly/3iyxOl8)
+
+## Inspiration
+
+**Ivan Saverchenko**
+
+- [Ivan Saverchenko](https://dribbble.com/saverchenko)
+
+## License
+
+MIT License
+
+Copyright (c) 2021 Etornam Sunu
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
