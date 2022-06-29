@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:famlicious_app/managers/auth_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,8 +16,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final TextEditingController _emailController = TextEditingController();
 
   bool isLoading = false;
-
-  final AuthManager _authManager = AuthManager();
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +69,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       setState(() {
                         isLoading = true;
                       });
-                      bool isSent = await _authManager
-                          .sendResetLink(_emailController.text);
+                      bool isSent = await Provider.of<AuthManager>(
+                        context,
+                        listen: false,
+                      ).sendResetLink(_emailController.text);
                       setState(() {
                         isLoading = false;
                       });
@@ -88,9 +89,9 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                             fontSize: 16.0);
                         Navigator.pop(context);
                       } else {
-                        //error
+                        final errorMessage = Provider.of<AuthManager>(context, listen: false).message;
                         Fluttertoast.showToast(
-                            msg: _authManager.message,
+                            msg: errorMessage,
                             toastLength: Toast.LENGTH_LONG,
                             gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 1,

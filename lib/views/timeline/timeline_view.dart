@@ -86,10 +86,9 @@ class TimelineView extends StatelessWidget {
                                               fontWeight: FontWeight.w600)),
                                   subtitle: Text(
                                       timeago.format(
-                                          snapshot.data!.docs[index]
-                                              .data()!['createdAt']
-                                              .toDate(),
-                                          allowFromNow: true),
+                                          snapshot.data!.docs[index].data()?['createdAt']?.toDate() ?? DateTime.now(),
+                                          allowFromNow: false
+                                      ),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!

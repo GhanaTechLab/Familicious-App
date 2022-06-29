@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:image_cropper/image_cropper.dart';
+import 'package:provider/provider.dart';
 import 'package:famlicious_app/managers/auth_manager.dart';
 import 'package:famlicious_app/utilities/utils.dart';
 import 'package:famlicious_app/views/home/home_view.dart';
@@ -26,18 +28,16 @@ class _CreateAccountViewState extends State<CreateAccountView> {
 
   final ImagePicker _imagePicker = ImagePicker();
 
-  File? _imageFile;
+  CroppedFile? _imageFile;
 
   final RegExp emailRegexp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
-  final AuthManager _authManager = AuthManager();
 
   bool isLoading = false;
 
   Future selectImage({ImageSource imageSource = ImageSource.camera}) async {
     XFile? selectedFile = await _imagePicker.pickImage(source: imageSource);
 
-    File? croppedFile = await myImageCropper(selectedFile!.path);
+    CroppedFile? croppedFile = await myImageCropper(selectedFile!.path);
 
     setState(() {
       _imageFile = croppedFile;
@@ -65,7 +65,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           fit: BoxFit.contain,
                         )
                       : Image.file(
-                          _imageFile!,
+                          File(_imageFile!.path),
                           width: 130,
                           height: 130,
                           fit: BoxFit.contain,
@@ -149,6 +149,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
               const SizedBox(height: 15),
               TextFormField(
                 controller: _passwordController,
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: const InputDecoration(
                   label: Text('Password'),
@@ -181,11 +182,11 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                           String password = _passwordController.text;
 
                           //call createNewUser method/func
-                          bool isCreated = await _authManager.createNewUser(
+                          bool isCreated = await Provider.of<AuthManager>(context, listen: false).createNewUser(
                               name: name,
                               email: email,
                               password: password,
-                              imageFile: _imageFile!);
+                              imageFile: File(_imageFile!.path));
 
                           setState(() {
                             isLoading = false;
@@ -207,9 +208,9 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                     builder: (context) => const HomeView()),
                                 (route) => false);
                           } else {
-                            //error occurred
+                            final errorMessage = Provider.of<AuthManager>(context, listen: false).message;
                             Fluttertoast.showToast(
-                                msg: _authManager.message,
+                                msg: errorMessage,
                                 toastLength: Toast.LENGTH_LONG,
                                 gravity: ToastGravity.BOTTOM,
                                 timeInSecForIosWeb: 1,
@@ -217,9 +218,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                                 textColor: Colors.white,
                                 fontSize: 16.0);
                           }
-                        } else if (_formKey.currentState!.validate() &&
-                            _imageFile == null) {
-                          //image was not selected
+                        } else if (_formKey.currentState!.validate() && _imageFile == null) {
                           Fluttertoast.showToast(
                               msg: "Please select your Profile picture",
                               toastLength: Toast.LENGTH_LONG,
