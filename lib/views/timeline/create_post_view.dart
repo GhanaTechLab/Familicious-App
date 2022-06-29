@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:image_cropper/image_cropper.dart';
 import 'package:famlicious_app/managers/post_manager.dart';
 import 'package:famlicious_app/utilities/utils.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,14 @@ class _CreatePostViewState extends State<CreatePostView> {
   final TextEditingController _postTxtController = TextEditingController();
 
   final PostManager _postManager = PostManager();
-  File? _postImageFile;
+  CroppedFile? _postImageFile;
   final ImagePicker _imagePicker = ImagePicker();
   bool isLoading = false;
 
   ///select image from camera or gallery
   selectImage(ImageSource imageSource) async {
     XFile? file = await _imagePicker.pickImage(source: imageSource);
-    File? croppedFile = await myImageCropper(file!.path);
+    CroppedFile? croppedFile = await myImageCropper(file!.path);
     setState(() {
       _postImageFile = croppedFile;
     });
@@ -51,7 +52,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                         isLoading = true;
                       });
                       bool isSubmitted = await _postManager.submitPost(
-                          postImage: _postImageFile!,
+                          postImage: File(_postImageFile!.path),
                           description: _postTxtController.text);
 
                       setState(() {
@@ -136,7 +137,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                     fit: BoxFit.cover,
                   )
                 : Image.file(
-                    _postImageFile!,
+                    File(_postImageFile!.path),
                     height: 200,
                     width: MediaQuery.of(context).size.width,
                     fit: BoxFit.cover,

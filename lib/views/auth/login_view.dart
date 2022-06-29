@@ -1,3 +1,6 @@
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:provider/provider.dart';
 import 'package:famlicious_app/managers/auth_manager.dart';
 import 'package:famlicious_app/views/auth/create_account_view.dart';
 import 'package:famlicious_app/views/auth/forgot_password_view.dart';
@@ -14,16 +17,39 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> _formKey = GlobalKey();
-
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
-
   final RegExp emailRegexp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
   bool isLoading = false;
 
-  final AuthManager _authManager = AuthManager();
+  void onAuthResult(bool isSuccessful, BuildContext context) {
+    if (isSuccessful) {
+      Fluttertoast.showToast(
+          msg: "Welcome back to Famlicious!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      //move to home view
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (context) => const HomeView()),
+              (route) => false);
+    } else {
+      final errorMessage = Provider.of<AuthManager>(context, listen: false).message;
+      Fluttertoast.showToast(
+          msg: errorMessage,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +61,11 @@ class _LoginViewState extends State<LoginView> {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            Image.asset('assets/logo_header.png',width: 130,height: 130,),
+            Image.asset(
+              'assets/logo_header.png',
+              width: 130,
+              height: 130,
+            ),
             const SizedBox(
               height: 35,
             ),
@@ -58,6 +88,7 @@ class _LoginViewState extends State<LoginView> {
             const SizedBox(height: 15),
             TextFormField(
               controller: _passwordController,
+              obscureText: true,
               keyboardType: TextInputType.visiblePassword,
               decoration: const InputDecoration(
                 label: Text('Password'),
@@ -87,68 +118,71 @@ class _LoginViewState extends State<LoginView> {
                     ))),
             isLoading
                 ? const Center(child: CircularProgressIndicator.adaptive())
-                : TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        bool isSuccessful = await _authManager.loginUser(
-                            email: _emailController.text,
-                            password: _passwordController.text);
-                        setState(() {
-                          isLoading = false;
-                        });
-                        if (isSuccessful) {
-//success
-                          Fluttertoast.showToast(
-                              msg: "Welcome back to Famlicious!",
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.green,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-
-                          //move to home view
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeView()),
-                              (route) => false);
-                        } else {
-                          //error
-                          Fluttertoast.showToast(
-                              msg: _authManager.message,
-                              toastLength: Toast.LENGTH_LONG,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                        }
-                      } else {
-                        //error validation
-                        Fluttertoast.showToast(
-                            msg: 'Email and Password are required!',
-                            toastLength: Toast.LENGTH_LONG,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0);
-                      }
-                    },
-                    style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context)
-                            .buttonTheme
-                            .colorScheme!
-                            .background),
-                    child: Text('Login',
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            color: Theme.of(context)
-                                .buttonTheme
-                                .colorScheme!
-                                .primary))),
+                : Column(
+                    children: [
+                      SignInButton(
+                        Buttons.Email,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            bool isSuccessful =
+                            await Provider.of<AuthManager>(context,
+                                listen: false)
+                                .loginUser(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+                            setState(() {
+                              isLoading = false;
+                            });
+                            onAuthResult(isSuccessful, context);
+                          } else {
+                            //error validation
+                            Fluttertoast.showToast(
+                                msg: 'Email and Password are required!',
+                                toastLength: Toast.LENGTH_LONG,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          }
+                        },
+                      ),
+                        SignInButton(
+                          Buttons.Google,
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            bool isSuccessful = await Provider.of<AuthManager>(
+                                    context,
+                                    listen: false)
+                                .googleLogin();
+                            setState(() {
+                              isLoading = false;
+                            });
+                            onAuthResult(isSuccessful, context);
+                          },
+                        ),
+                        SignInButton(
+                          Buttons.Facebook,
+                          onPressed: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            bool isSuccessful = await Provider.of<AuthManager>(
+                                    context,
+                                    listen: false)
+                                .facebookLogin();
+                            setState(() {
+                              isLoading = false;
+                            });
+                            onAuthResult(isSuccessful, context);
+                          },
+                        ),
+                      ]),
             Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
